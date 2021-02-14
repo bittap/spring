@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd">
+
+	<!-- 빈등록 -->
+	<bean id="MemberBuyListController" class="member.MemberBuyListController" />
+	<bean id="MemberController" class="member.MemberController" />
+	<bean id ="memberListController" class ="member.MemberListController"/>
+
+	<mvc:annotation-driven />
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521/root" />
+		<property name="username" value="c##scott" />
+		<property name="password" value="tiger" />
+	</bean>
+
+	<!-- [2] SqlSessionFactoryBean 빈 선언 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- mapperLocations는 복수이므로 여러개를 지정할수 있으므로 *을 붙여야함 ex) part03_template/memMapper.xml, 
+			part03_template/boardMapper.xml이 있으면 classpath*:part03_template/*Mapper.xml 
+			<property name="mapperLocations" value="classpath*:part03_template/memMapper.xml"/> -->
+		<property name="mapperLocations" value="classpath:**/*Mapper.xml" />
+
+	</bean>
+
+	<!-- [3] SqlSessionTemplate 빈 선언 -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" index="0" />
+	</bean>
+
+	<!-- [4] TransactionManager 빈 선언 Spring jdbc나 myBatis를 이용해서 DB연동을 처리하는 경우 
+		DaataSourceTransactionManager가 트랜잭션 관리자로 사용된다. -->
+	<bean id="transActionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+
+	<tx:annotation-driven />
+			<!-- [5] 선언적 트랜잭션 : <tx:advice>태그를 이용한 트랜잭션 처리 -->
+	<tx:advice id="txAdvice" transaction-manager="transActionManager">
+		<tx:attributes>
+			<tx:method name="list*" rollback-for="java.lang.Exception" />
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- [6] 트랜잭션으로 처리할 메소드에 transactionManager설정 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="aa" expression="execution(* service.Service.*.*(..))"
+			 />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="aa" />
+	</aop:config>
+
+	<!-- [4] MemDaoImp 빈 선언 -->
+	<bean id="dao" class="memberDAO.MemberDaoImp">
+		<property name="sessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	
+	<bean id="main" class="mainDAO.MainDaoImp">
+		<property name="sessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+
+	<!-- [5] controller 빈 선언 -->
+	<bean id="ServiceImp" class="service.ServiceImp">
+		<property name="dao" ref="dao" />
+		<property name="mainDAO" ref="main" />
+	</bean>
+
+	<bean id="MemberDaoController" class="memberDaoController.MemberDaoController">
+		 <property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+	<bean id="MemberDaoController1" class="memberDaoController.MemberDaoController1">
+		 <property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+		<bean id="MemberListDaoController" class="memberDaoController.MemberListDaoController">
+		 <property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+			<bean id="MemberListDaoController1" class="memberDaoController.MemberListDaoController1">
+		 <property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+	<bean id = "MemberMailingController" class = "member.MemberMailingController">
+		<property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+	<bean id = "Main" class = "main.Main">
+		<property name="service" ref="ServiceImp" /> 
+	</bean>
+	
+
+
+
+
+	<!--[6] view 빈 선언 -->
+
+	<bean id="view"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="2" />
+	</bean>
+
+
+	<bean id="beanNameResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver">
+		<property name="order" value="0" />
+	</bean>
+
+ <mvc:resources mapping="/resources/**" location="/resources/" />
+
+
+ <!-- 파일 업로드용 resolver -->
+
+ <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+
+  <property name="defaultEncoding" value="UTF-8" />
+
+  <property name="maxUploadSize" value="10485760" />
+
+ </bean>
+
+
+
+
+
+
+</beans>

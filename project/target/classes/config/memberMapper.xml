@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+	<!-- 회원목록 myBatis -->
+	<select id="memberList_search" parameterType="memberDTO.MemberDTO"
+		resultType="memberDTO.MemberDTO">
+		<![CDATA[select b.* from (select rownum as rowm,a.* from (select * from
+		member_Table where 1=1)a)b
+		where b.rowm>=#{startRow} and b.rowm<=#{endRow}]]>
+		<if test="member_signDate1 != null">
+			<![CDATA[and member_signDate >= #{member_signDate1}]]>
+		</if>
+		<if test="member_signDate2 != null">
+				<![CDATA[and member_signDate <= #{member_signDate2}]]>
+		</if> 
+		  <if test="member_recentDate1 != null">
+					<![CDATA[and member_recentDate >= #{member_recentDate1}]]>
+		</if>
+		<if test="member_recentDate2 != null">
+						<![CDATA[and member_recentDate <= #{member_recentDate2}]]>
+		</if>  
+		 <if test="member_purchaseAmount1 !=0">
+							<![CDATA[and member_purchaseAmount >= #{member_purchaseAmount1}]]>
+		</if>
+		<if test="member_purchaseAmount2 !=0">
+								<![CDATA[and member_purchaseAmount <= #{member_purchaseAmount2}]]>
+		</if> 
+		
+		<!-- 현재 order_date1 == null and order_date2 == null and 가 없는 관계로 뻇음 order테이블이 완성되면 밑에 추가할것 -->
+		 <if test="all == 0 and member_signDate1 == null and member_signDate2 == null and member_recentDate1 == null and member_recentDate2 == null and member_purchaseAmount1 == null and member_purchaseAmount2 == null">
+			
+		</if>
+		<if test="member_id !=null">
+			and member_id = #{member_id}
+		</if>
+		<if test="member_name !=null">
+			and member_name = #{member_name}
+		</if>
+		<if test="member_homeNumber !=null">
+				and member_homeNumber = #{member_homeNumber}
+		</if>
+		<if test="member_telNumber !=null">
+				and member_telNumber = #{member_telNumber}
+		</if>
+		<if test="member_email !=null">
+				and member_email = #{member_email}			
+		</if> 
+		
+		<if test="sort == 'member_signDate'">
+		order by member_signDate desc
+		</if>
+		 <if test="sort == 'member_purchaseAmount'">
+		order by member_purchaseAmount desc
+		</if>
+		<if test="sort == 'member_name'">
+		order by member_name desc
+		</if> 
+		
+		
+		
+	</select>
+	
+	<select id="memberList_count" parameterType="memberDTO.MemberDTO"
+		resultType="int">
+		select count(*) from member_table where 1=1
+		<if test="member_signDate1 != null">
+			<![CDATA[and member_signDate >= #{member_signDate1}]]>
+		</if>
+		<if test="member_signDate2 != null">
+				<![CDATA[and member_signDate <= #{member_signDate2}]]>
+		</if> 
+		  <if test="member_recentDate1 != null">
+					<![CDATA[and member_recentDate >= #{member_recentDate1}]]>
+		</if>
+		<if test="member_recentDate2 != null">
+						<![CDATA[and member_recentDate <= #{member_recentDate2}]]>
+		</if>  
+		 <if test="member_purchaseAmount1 !=0">
+							<![CDATA[and member_purchaseAmount >= #{member_purchaseAmount1}]]>
+		</if>
+		<if test="member_purchaseAmount2 !=0">
+								<![CDATA[and member_purchaseAmount <= #{member_purchaseAmount2}]]>
+		</if> 
+		
+		<!-- 현재 order_date1 == null and order_date2 == null and 가 없는 관계로 뻇음 order테이블이 완성되면 밑에 추가할것 -->
+		 <if test="all == 0 and member_signDate1 == null and member_signDate2 == null and member_recentDate1 == null and member_recentDate2 == null and member_purchaseAmount1 == null and member_purchaseAmount2 == null">
+			
+		</if>
+		<if test="member_id !=null">
+			and member_id = #{member_id}
+		</if>
+		<if test="member_name !=null">
+			and member_name = #{member_name}
+		</if>
+		<if test="member_homeNumber !=null">
+				and member_homeNumber = #{member_homeNumber}
+		</if>
+		<if test="member_telNumber !=null">
+				and member_telNumber = #{member_telNumber}
+		</if>
+		<if test="member_email !=null">
+				and member_email = #{member_email}			
+		</if> 
+	</select>
+	
+		<select id="memberAll_count" resultType="int">
+			select count(*) from member_table
+		</select>
+
+
+
+	<!--  상품 구매 회원목록 myBatis -->
+	<select id="memberBuyList_search" parameterType="memberDTO.MemberDTO"
+		resultType="memberDTO.MemberDTO">
+		<![CDATA[select b.* from (select rownum as rowm,a.* from (select m.*, o.order_date from
+		member_Table m, orderTable o where 1=1 and m.member_id = o.member_id)a)b
+		where b.rowm>=#{startRow} and b.rowm<=#{endRow}]]>
+		<if test="member_signDate1 != null">
+			<![CDATA[and member_signDate >= #{member_signDate1}]]>
+		</if>
+		<if test="member_signDate2 != null">
+				<![CDATA[and member_signDate <= #{member_signDate2}]]>
+		</if> 
+		  <if test="order_date1 != null">
+					<![CDATA[and order_date >= #{order_date1}]]>
+		</if>
+		<if test="order_date2 != null">
+						<![CDATA[and order_date <= #{order_date2}]]>
+		</if>  
+		 <if test="member_purchaseAmount1 !=0">
+							<![CDATA[and member_purchaseAmount >= #{member_purchaseAmount1}]]>
+		</if>
+		<if test="member_purchaseAmount2 !=0">
+								<![CDATA[and member_purchaseAmount <= #{member_purchaseAmount2}]]>
+		</if> 
+		
+		<!-- 현재 order_date1 == null and order_date2 == null and 가 없는 관계로 뻇음 order테이블이 완성되면 밑에 추가할것 -->
+		 <if test="all == 0 and member_signDate1 == null and member_signDate2 == null and order_date1 == null and order_date2 == null and member_purchaseAmount1 == null and member_purchaseAmount2 == null">
+			
+		</if>
+		<if test="member_id !=null">
+			and member_id = #{member_id}
+		</if>
+		<if test="member_name !=null">
+			and member_name = #{member_name}
+		</if>
+		<if test="member_homeNumber !=null">
+				and member_homeNumber = #{member_homeNumber}
+		</if>
+		<if test="member_telNumber !=null">
+				and member_telNumber = #{member_telNumber}
+		</if>
+		<if test="member_email !=null">
+				and member_email = #{member_email}			
+		</if> 
+		
+		<if test="sort == 'member_signDate'">
+		order by member_signDate desc
+		</if>
+		 <if test="sort == 'member_purchaseAmount'">
+		order by member_purchaseAmount desc
+		</if>
+		<if test="sort == 'member_name'">
+		order by member_name desc
+		</if> 
+		
+		
+		
+	</select>
+	
+	<select id="memberBuyList_count" parameterType="memberDTO.MemberDTO"
+		resultType="int">
+		<![CDATA[select count(*) from (select rownum as rowm,a.* from (select m.*, o.order_date from
+		member_Table m, orderTable o where 1=1 and m.member_id = o.member_id)a)b
+		where 1=1]]>
+		<if test="member_signDate1 != null">
+			<![CDATA[and member_signDate >= #{member_signDate1}]]>
+		</if>
+		<if test="member_signDate2 != null">
+				<![CDATA[and member_signDate <= #{member_signDate2}]]>
+		</if> 
+		 <if test="order_date1 != null">
+					<![CDATA[and order_date >= #{order_date1}]]>
+		</if>
+		<if test="order_date2 != null">
+						<![CDATA[and order_date <= #{order_date2}]]>
+		</if>  
+		 <if test="member_purchaseAmount1 !=0">
+							<![CDATA[and member_purchaseAmount >= #{member_purchaseAmount1}]]>
+		</if>
+		<if test="member_purchaseAmount2 !=0">
+								<![CDATA[and member_purchaseAmount <= #{member_purchaseAmount2}]]>
+		</if> 
+		
+		<!-- 현재 order_date1 == null and order_date2 == null and 가 없는 관계로 뻇음 order테이블이 완성되면 밑에 추가할것 -->
+		 <if test="all == 0 and member_signDate1 == null and member_signDate2 == null and order_date1 == null and order_date2 == null and member_purchaseAmount1 == null and member_purchaseAmount2 == null">
+			
+		</if>
+		<if test="member_id !=null">
+			and member_id = #{member_id}
+		</if>
+		<if test="member_name !=null">
+			and member_name = #{member_name}
+		</if>
+		<if test="member_homeNumber !=null">
+				and member_homeNumber = #{member_homeNumber}
+		</if>
+		<if test="member_telNumber !=null">
+				and member_telNumber = #{member_telNumber}
+		</if>
+		<if test="member_email !=null">
+				and member_email = #{member_email}			
+		</if> 
+	</select>
+	
+		<select id="memberBuyListAll_count" resultType="int">
+			select count(*) from member_Table m, orderTable o where m.member_id = o.member_id
+		</select>
+		
+		
+		<select id="email_list" resultType="memberDTO.MemberDTO">
+			select member_email from member_table
+		</select>
+		
+		
+</mapper>

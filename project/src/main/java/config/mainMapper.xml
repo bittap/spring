@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="main">
+	<select id="today_price" resultType="int">
+		select count(*)  from member_table
+<!--  select sum(o.order_amount*p.price) from orderTable o, productTable p where o.num = p.num  and o.order_date = to_char(sysdate,'YYYY-MM-DD')-->
+	</select>
+	 
+	
+	<select id = "today_order_count" resultType="int">
+		select count(*) from orderTable  where order_date = to_char(sysdate,'YYYY-MM-DD')
+	</select>
+	
+	<select id="before_price" resultType="int">
+<![CDATA[select NVL(sum(o.order_amount*p.price),0) from orderTable o, productTable p where o.num = p.num and o.order_date >= to_char(add_months(to_char(sysdate),-1),'YYYY-MM-')||'01' and o.order_date <= to_char(add_months(to_char(sysdate),-1),'YYYY-MM-')||'31']]>
+	</select>
+	 
+	
+	<select id = "before_order_count" resultType="int">
+		<![CDATA[select count(*) from orderTable  where order_date >= to_char(add_months(to_char(sysdate),-1),'YYYY-MM-')||'01' and order_date <= to_char(add_months(to_char(sysdate),-1),'YYYY-MM-')||'31']]>
+	</select>
+	<select id="month_order_list" resultType="mainDTO.MainDTO">
+	<![CDATA[select m.member_name, p.proname, o.order_date, o.order_amount   from member_table m,orderTable o, productTable p where m.member_id = o.member_id and o.num = p.num
+
+     and o.order_date >= to_char((sysdate),'YYYY-MM-')||'01' and o.order_date <= to_char((sysdate),'YYYY-MM-')||'31']]>
+	</select>
+	
+	<select id="month_member_list" resultType="mainDTO.MainDTO">
+		<![CDATA[select member_id, member_name, member_email, member_signDate from member_table where  member_signDate >= to_char((sysdate),'YYYY-MM-')||'01' and member_signDate <= to_char((sysdate),'YYYY-MM-')||'31']]>
+	</select>
+</mapper>

@@ -1,0 +1,180 @@
+.button {
+	background: url("../imgs/button/buttonWhite.gif") no-repeat; margin: 0px; border: 0px currentColor; border-image: none; color: rgb(51, 51, 51); overflow: visible; font-family: dotum, Tahoma, Sans-serif; font-size: 12px; text-decoration: none !important; display: inline-block; white-space: nowrap; position: relative;
+}
+.button a {
+	background: url("../imgs/button/buttonWhite.gif") no-repeat; margin: 0px; border: 0px currentColor; border-image: none; color: rgb(51, 51, 51); overflow: visible; font-family: dotum, Tahoma, Sans-serif; font-size: 12px; text-decoration: none !important; display: inline-block; white-space: nowrap; position: relative;
+}
+.button button {
+	background: url("../imgs/button/buttonWhite.gif") no-repeat; margin: 0px; border: 0px currentColor; border-image: none; color: rgb(51, 51, 51); overflow: visible; font-family: dotum, Tahoma, Sans-serif; font-size: 12px; text-decoration: none !important; display: inline-block; white-space: nowrap; position: relative;
+}
+.button input {
+	background: url("../imgs/button/buttonWhite.gif") no-repeat; margin: 0px; border: 0px currentColor; border-image: none; color: rgb(51, 51, 51); overflow: visible; font-family: dotum, Tahoma, Sans-serif; font-size: 12px; text-decoration: none !important; display: inline-block; white-space: nowrap; position: relative;
+}
+.button {
+	background-position: left top; padding: 0px !important; height: 23px; margin-right: 2px; vertical-align: middle;
+}
+.button a {
+	left: 2px; vertical-align: top; cursor: pointer;
+}
+.button button {
+	left: 2px; vertical-align: top; cursor: pointer;
+}
+.button input {
+	left: 2px; vertical-align: top; cursor: pointer;
+}
+.button.large {
+	background-position: left -30px; height: 29px;
+}
+.button.xLarge {
+	background-position: left -65px; height: 35px;
+}
+.button.small {
+	background-position: left -107px; height: 18px;
+}
+.button a {
+	background-position: right top; padding: 0px 10px 0px 8px; height: 23px; line-height: 23px; font-size: 12px;
+}
+.button button {
+	background-position: right top; padding: 0px 10px 0px 8px; height: 23px; line-height: 23px; font-size: 12px;
+}
+.button input {
+	background-position: right top; padding: 0px 10px 0px 8px; height: 23px; line-height: 23px; font-size: 12px;
+}
+.button.large a {
+	background-position: right -30px; padding: 0px 15px 0px 13px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button.large button {
+	background-position: right -30px; padding: 0px 15px 0px 13px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button.large input {
+	background-position: right -30px; padding: 0px 15px 0px 13px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button.xLarge a {
+	background-position: right -65px; padding: 0px 10px 0px 8px; height: 35px; line-height: 35px; font-size: 14px; font-weight: bold;
+}
+.button.xLarge button {
+	background-position: right -65px; padding: 0px 10px 0px 8px; height: 35px; line-height: 35px; font-size: 14px; font-weight: bold;
+}
+.button.xLarge input {
+	background-position: right -65px; padding: 0px 10px 0px 8px; height: 35px; line-height: 35px; font-size: 14px; font-weight: bold;
+}
+.button.small a {
+	background-position: right -107px; padding: 2px 6px 0px 4px; height: 18px; line-height: 18px; font-size: 11px;
+}
+.button.small button {
+	background-position: right -107px; padding: 2px 6px 0px 4px; height: 18px; line-height: 18px; font-size: 11px;
+}
+.button.small input {
+	background-position: right -107px; padding: 2px 6px 0px 4px; height: 18px; line-height: 18px; font-size: 11px;
+}
+.button.aside {
+	background-position: left -30px; height: 29px;
+}
+.button.aside a {
+	background-position: right -30px; padding: 0px 30px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button.aside button {
+	background-position: right -30px; padding: 0px 30px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button.aside input {
+	background-position: right -30px; padding: 0px 30px; height: 29px; line-height: 29px; font-size: 12px; font-weight: bold;
+}
+.button *:hover {
+	color: rgb(220, 0, 0);
+}
+.button *:active {
+	color: rgb(220, 0, 0);
+}
+.button *:focus {
+	color: rgb(220, 0, 0);
+}
+.button.green {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonGreen.gif");
+}
+.button.green a {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonGreen.gif");
+}
+.button.green button {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonGreen.gif");
+}
+.button.green input {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonGreen.gif");
+}
+.button.green *:hover {
+	color: rgb(255, 255, 0);
+}
+.button.green *:active {
+	color: rgb(255, 255, 0);
+}
+.button.green *:focus {
+	color: rgb(255, 255, 0);
+}
+.button.black {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlack.gif");
+}
+.button.black a {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlack.gif");
+}
+.button.black button {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlack.gif");
+}
+.button.black input {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlack.gif");
+}
+.button.black *:hover {
+	color: rgb(255, 255, 0);
+}
+.button.black *:active {
+	color: rgb(255, 255, 0);
+}
+.button.black *:focus {
+	color: rgb(255, 255, 0);
+}
+.button.red {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonRed.gif");
+}
+.button.red a {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonRed.gif");
+}
+.button.red button {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonRed.gif");
+}
+.button.red input {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonRed.gif");
+}
+.button.red *:hover {
+	color: rgb(255, 255, 0);
+}
+.button.red *:active {
+	color: rgb(255, 255, 0);
+}
+.button.red *:focus {
+	color: rgb(255, 255, 0);
+}
+.button.blue {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlue.gif");
+}
+.button.blue a {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlue.gif");
+}
+.button.blue button {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlue.gif");
+}
+.button.blue input {
+	color: rgb(255, 255, 255); background-image: url("../imgs/button/buttonBlue.gif");
+}
+.button.blue *:hover {
+	color: rgb(255, 255, 0);
+}
+.button.blue *:active {
+	color: rgb(255, 255, 0);
+}
+.button.blue *:focus {
+	color: rgb(255, 255, 0);
+}
+.button.strong * {
+	font-weight: bold !important;
+}
+.display {
+	letter-spacing: -0.1em;
+}
